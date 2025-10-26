@@ -96,10 +96,7 @@ module wheel_with_front_support(_angle_Z)
     rotate([0, 0, _angle_Z]){
         translate([0, -wheel_hub_small / 2 - 15, 0]) 
             rotate([90, 0, 0]){
-                wheel(wheel_radius_back, wheel_thick, 7);
-                // break
-                translate([0, 0, -43]) 
-                    cylinder(r = 80, h = 2);
+            wheel_with_break_disk(wheel_radius_back, wheel_thick, shaft_thick = 7, break_disk_radius = 80);
             }
         
         //rotate([0, _angle_V, 0])
@@ -439,7 +436,7 @@ module trike()
                 pipe_panel_suport_center(610, 65)
                 ;
 // crank
-    translate([human_pos_X + crank_arm_length, 35, 350])
+    translate([human_pos_X + crank_arm_length, 0, 350])
         rotate ([90, 0, 0]) 
                 crank_with_tail(200);    
 

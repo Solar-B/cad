@@ -25,6 +25,20 @@ module wheel(radius, thick, shaft_thick = 7)
     }
 }
 //---------------------------------------------------------------------------------------
+module wheel_with_gears(radius, thick, shaft_thick = 7, gear_thick, gear_radius)
+{
+    wheel(radius, thick, shaft_thick = 7);
+    cylinder(h =  gear_thick, r = gear_radius);
+}
+//---------------------------------------------------------------------------------------
+module wheel_with_break_disk(radius, thick, shaft_thick = 7, break_disk_radius = 80)
+{
+    wheel(radius, thick, shaft_thick);
+    // break
+    translate([0, 0, -43]) 
+        cylinder(r = break_disk_radius, h = 2);
+}
+//---------------------------------------------------------------------------------------
 module crank(arm_length, arm_pos_angle, disk_radius = 60)
 {
     color("Magenta"){
@@ -49,7 +63,7 @@ module crank(arm_length, arm_pos_angle, disk_radius = 60)
         // shaft
         cylinder(h = 160, r = 19.5, center = true);
         // disk 
-        translate([0, 0, 35])
+        translate([0, 0, -35])
         cylinder(h = 3, r = disk_radius);
     }
 }

@@ -1,3 +1,12 @@
+// Solar-Bear
+// A solar-hybrid trike
+// https://github.com/solar-b
+
+// Maker: Mihai Oltean
+// https://mihaioltean.github.io
+// License: MIT
+
+// last update 2025.10.07
 
 //---------------------------------------------------------------------------------------
 module human(body_angle)

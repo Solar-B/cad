@@ -1,10 +1,12 @@
-// Solar Big Bear
-
-// last update 2025.10.07
+// Solar-Bear
+// A solar-hybrid trike
+// https://github.com/solar-b
 
 // Maker: Mihai Oltean
 // https://mihaioltean.github.io
 // License: MIT
+
+// last update 2025.10.26
 
 //---------------------------------------------------------------------------------------
 module wheel(radius, thick, shaft_thick = 7)

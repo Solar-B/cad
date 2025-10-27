@@ -1,3 +1,15 @@
+// Solar-Bear
+// A solar-hybrid trike
+// https://github.com/solar-b
+
+// Maker: Mihai Oltean
+// https://mihaioltean.github.io
+// License: MIT
+
+// last update 2025.10.07
+
+//---------------------------------------------------------------------------------------
+use <metal_components.scad>
 //---------------------------------------------------------------------------------------
 module solar_panel(panel_size)
 {
@@ -21,25 +33,18 @@ module solar_panel(panel_size)
 module solar_panel_with_enhanced_frame(panel_size)
 {
     solar_panel(panel_size);
-    // support
-// on length
+// support; on length
+
     translate([25, panel_size[1] - 20 -5, 1])
         color("Silver") cube([panel_size[0] -25, 20, 20]);
         
     translate([25, 5, 1])
         color("Silver") cube([panel_size[0] -25, 20, 20]);
-// screws
-/*
-    translate([panel_size[0] - 20, panel_size[1] + 20, 10])
-        rotate([90, 0, 0])
-            color("black") 
-                cylinder(h = 100, r = 4);
-                */
-// on width
+// support; on width
 // left
     translate([5, 5, 1])
         color("Silver") cube([20, panel_size[1] - 10, 20]);
-       // right 
+// right 
     translate([panel_size[0] - 5 - 20 - 25, 25, 1])
         color("Silver") cube([20, panel_size[1] - 10 - 40, 20]);
         
@@ -47,8 +52,31 @@ module solar_panel_with_enhanced_frame(panel_size)
     translate([panel_size[0] / 2 - 10, 25, 1])
         color("Silver") cube([20, panel_size[1] - 10 - 40, 20]);
         
+// screws
+/*
+    translate([panel_size[0] - 20, panel_size[1] + 20, 10])
+        rotate([90, 0, 0])
+            color("black") 
+                cylinder(h = 100, r = 4);
+*/
 }
 //---------------------------------------------------------------------------------------
+module solar_panel_with_enhanced_frame_and_support(panel_size)
+{
+    solar_panel_with_enhanced_frame(panel_size);
+
+    translate ([-3, 0, -3]) 
+        corner_30_30_3(panel_size[1])
+        ;
+        
+    translate ([panel_size[0] + 3, -0, -3]) 
+        mirror([1, 0, 0])
+            corner_30_30_3(panel_size[1]);
+}
+//---------------------------------------------------------------------------------------
+
 //solar_panel(solar_panel_front_size);
 
-solar_panel_with_enhanced_frame([1485, 668, 30]);
+//solar_panel_with_enhanced_frame([1485, 668, 30]);
+
+solar_panel_with_enhanced_frame_and_support([1485, 668, 30]);

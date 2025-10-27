@@ -1,9 +1,10 @@
 // Solar-Bear
 // A solar-hybrid trike
+// https://github.com/solar-b
 
-// Version: 23.5
-// since 2025.10.20
-// last update 2025.10.26
+// Version: 23.6
+// since 2025.10.27
+// last update 2025.10.27
 
 // Maker: Mihai Oltean
 // https://mihaioltean.github.io
@@ -461,25 +462,13 @@ module trike()
                 ;
 }
 //---------------------------------------------------------------------------------------
-module solar_panel_with_enhanced_frame_and_support(panel_size, top, bottom)
-{
-    solar_panel_with_enhanced_frame(panel_size);
-
-    translate ([-3, -top, -3]) 
-        corner_30_30_3(panel_size[1] + top + bottom)
-        ;
-        
-    translate ([panel_size[0] + 3, -0, -3]) 
-        mirror([1, 0, 0])
-            corner_30_30_3(panel_size[1]);
-}
-//---------------------------------------------------------------------------------------
-module solar_panel_hinge_bar(length, top, bottom, angle_top, angle_bottom)
+module solar_panel_hinge_bar_with_nuts(length, top, bottom, angle_top, angle_bottom)
 {
     color("DarkGreen") 
     rotate([-90, 0, 0])
         difference(){
             cylinder(h = length + top + bottom, r = 8);
+            // cut extremities; maybe I do not need this
             rotate([angle_bottom, 0, 0])
                 translate([0, 0, -14.5])
                     cylinder(h = 20, r = 20);
@@ -488,33 +477,33 @@ module solar_panel_hinge_bar(length, top, bottom, angle_top, angle_bottom)
                     cylinder(h = 20, r = 20);
         }
 
-   // nut
+   // nut; top
     translate([0, top+20, 0])
         rotate([-90, 0, 0])
                 rotate([0, 0, 0])
                     cylinder(h = 40, r = 13.5, $fn = 6)
                     ;
-   // nut
+   // nut; bottom
     translate([0, length - 40 - 20, 0])
         rotate([-90, 0, 0])
                 rotate([0, 0, 0])
                     cylinder(h = 40, r = 13.5, $fn = 6)
                     ;
-   // nut
+   // nut middle; maybe I do not need this
     translate([0, length / 2, 0])
         rotate([-90, 0, 0])
                 rotate([0, 0, 0])
                     cylinder(h = 40, r = 13.5, $fn = 6);
 }
 //---------------------------------------------------------------------------------------
-module solar_panel_with_enhanced_frame_and_support_and_hinges(panel_size)
+module solar_panel_with_enhanced_frame_and_support_and_hinges_with_nuts(panel_size)
 {
-    solar_panel_with_enhanced_frame_and_support(panel_size, 0, 0);
+    solar_panel_with_enhanced_frame_and_support(panel_size);
 // hinges            
     translate ([4, 0, -3 - 12]) {
         // bar
         translate([0, -7, 0])
-            solar_panel_hinge_bar(panel_size[1], 7, 25, 55, 35);
+            solar_panel_hinge_bar_with_nuts(panel_size[1], 7, 25, 55, 35);
     }
                 
 }
@@ -524,13 +513,13 @@ module solar_wing(angle, panel_size, angle2, space)
     rotate([0, 0, angle2])
         rotate([-angle, 0, 0])
         translate([0, space, 0]) 
-            solar_panel_with_enhanced_frame_and_support(panel_size, 10, 35);
+            solar_panel_with_enhanced_frame_and_support(panel_size);
         
     rotate([0, 0, -angle2]) 
         rotate([angle, 0, 0]) 
             translate([0, - space, 0]) 
             mirror([0, 1, 0])
-                solar_panel_with_enhanced_frame_and_support(panel_size, 10, 35);
+                solar_panel_with_enhanced_frame_and_support(panel_size);
 }
 //---------------------------------------------------------------------------------------
 module solar_wing_with_hinges(angle, panel_size, angle2, space)
@@ -538,13 +527,13 @@ module solar_wing_with_hinges(angle, panel_size, angle2, space)
     rotate([0, 0, angle2])
         rotate([-angle, 0, 0])
         translate([0, space, 0]) 
-            solar_panel_with_enhanced_frame_and_support_and_hinges(panel_size);
+            solar_panel_with_enhanced_frame_and_support_and_hinges_with_nuts(panel_size);
         
     rotate([0, 0, -angle2]) 
         rotate([angle, 0, 0]) 
             translate([0, - space, 0]) 
                 mirror([0, 1, 0])
-                solar_panel_with_enhanced_frame_and_support_and_hinges(panel_size);
+                solar_panel_with_enhanced_frame_and_support_and_hinges_with_nuts(panel_size);
 }
 //---------------------------------------------------------------------------------------
 module trike_with_panels()
@@ -582,10 +571,10 @@ module trike_with_human()
             human(human_angle);
 }
 //---------------------------------------------------------------------------------------
-//trike_with_panels_and_human();
+trike_with_panels_and_human();
 //trike_with_human();
 //trike_with_panels();
-trike();
+//trike();
 
 //solar_panel_with_support(solar_panel_front_size);
 //solar_panel_with_support_and_balamale(solar_panel_front_size);

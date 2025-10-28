@@ -31,25 +31,33 @@ module solar_panel(panel_size)
 //---------------------------------------------------------------------------------------
 module solar_panel_with_enhanced_frame(panel_size)
 {
-    solar_panel(panel_size);
+    translate([0, 0, 20]){
+        //solar_panel(panel_size);
 // support; on length
 
-    translate([25, panel_size[1] - 20 -5, 1])
-        color("Silver") cube([panel_size[0] -25, 20, 20]);
+        translate([25, panel_size[1] - 20 -5, 1])
+            color("Silver") cube([panel_size[0] -25, 20, 20]);
+            
+        translate([25, 5, 1])
+            color("Silver") cube([panel_size[0] -25, 20, 20]);
+    // support; on width
+    // left
+        translate([5, 5, 1])
+            color("Silver") cube([20, panel_size[1] - 10, 20]);
+    // right 
+        translate([panel_size[0] - 5 - 20 - 25, 25, 1])
+            color("Silver") cube([20, panel_size[1] - 10 - 40, 20]);
+            
+    // on center
+        translate([panel_size[0] / 2 - 10, 25, 1])
+            color("Silver") cube([20, panel_size[1] - 10 - 40, 20]);
+    }
         
-    translate([25, 5, 1])
-        color("Silver") cube([panel_size[0] -25, 20, 20]);
-// support; on width
-// left
-    translate([5, 5, 1])
-        color("Silver") cube([20, panel_size[1] - 10, 20]);
-// right 
-    translate([panel_size[0] - 5 - 20 - 25, 25, 1])
-        color("Silver") cube([20, panel_size[1] - 10 - 40, 20]);
-        
-// on center
-    translate([panel_size[0] / 2 - 10, 25, 1])
-        color("Silver") cube([20, panel_size[1] - 10 - 40, 20]);
+       
+    translate([0, 5, 0])
+        color("Silver") cube([panel_size[0], 20, 20]);
+    translate([0, panel_size[1] - 25, 0])
+        color("Silver") cube([panel_size[0], 20, 20]);
         
 // screws
 /*
@@ -60,13 +68,23 @@ module solar_panel_with_enhanced_frame(panel_size)
 */
 }
 //---------------------------------------------------------------------------------------
-module corner_with_bar(corner_length, top = 0, bottom = 0)
+module corner_with_bar(corner_length, top = 0, bottom = 0, bar_offset = 6)
 {
     corner_30_30_3(corner_length);
-    translate([19, -bottom, -6])
+    translate([bar_offset, -bottom, -6])
         rotate([-90, 0, 0])
             cylinder(corner_length + top + bottom, r = 6);
     
+}
+//---------------------------------------------------------------------------------------
+module corner_with_hinge_bar(corner_length, top = 0, bottom = 0, bar_offset = 6)
+{
+    corner_30_30_3(corner_length);
+            
+    translate ([bar_offset, 0, -3 - 12]) {
+        translate([0, -7, 0])
+            hinge_bar_with_nuts(corner_length, top, bottom);
+    }
 }
 //---------------------------------------------------------------------------------------
 module solar_panel_with_enhanced_frame_and_support_with_bar(panel_size)
@@ -75,12 +93,12 @@ module solar_panel_with_enhanced_frame_and_support_with_bar(panel_size)
     solar_panel_with_enhanced_frame(panel_size);
 // left side
     translate ([-3, 0, -3]) 
-        corner_with_bar(panel_size[1], 40, 15)
+        corner_with_bar(panel_size[1], 50, 20, bar_offset = 6)// these values are hard-coded
         ;
 // right side        
     translate ([panel_size[0] + 3, -0, -3]) 
         mirror([1, 0, 0])
-            corner_with_bar(panel_size[1]);
+            corner_with_bar(panel_size[1], 0, 0, bar_offset = 19);
 }
 //---------------------------------------------------------------------------------------
 module solar_panel_with_enhanced_frame_and_support_with_hinge_bar(panel_size)
@@ -89,19 +107,15 @@ module solar_panel_with_enhanced_frame_and_support_with_hinge_bar(panel_size)
 
     // left side
     // hinge            
-    translate ([4, 0, -3 - 12]) {
-        translate([0, -7, 0])
-            hinge_bar_with_nuts(panel_size[1], 7, 25);
-    }
     
     translate ([-3, 0, -3]) 
-        corner_with_bar(panel_size[1], 40, 15)
+        corner_with_hinge_bar(panel_size[1], 7, 25, bar_offset = 4)
         ;
         
 // right side        
     translate ([panel_size[0] + 3, -0, -3]) 
         mirror([1, 0, 0])
-            corner_with_bar(panel_size[1]);            
+            corner_with_bar(panel_size[1], 0, 0, bar_offset = 19);
 }
 //---------------------------------------------------------------------------------------
 

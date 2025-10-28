@@ -2,8 +2,8 @@
 // A solar-hybrid trike
 // https://github.com/solar-b
 
-// Version: 23.6
-// since: 2025.10.27
+// Version: 23.7
+// since: 2025.10.28
 // last update: 2025.10.28
 
 // Maker: Mihai Oltean

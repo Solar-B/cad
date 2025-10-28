@@ -92,3 +92,28 @@ module T_40_5(length)
     }
 }
 //---------------------------------------------------------------------------------------
+module hinge_bar_with_nuts(length, top, bottom)
+{
+    color("DarkGreen") 
+    rotate([-90, 0, 0])
+            cylinder(h = length + top + bottom, r = 8);
+
+   // nut; top
+    translate([0, top+20, 0])
+        rotate([-90, 0, 0])
+                rotate([0, 0, 0])
+                    cylinder(h = 40, r = 13.5, $fn = 6)
+                    ;
+   // nut; bottom
+    translate([0, length - 40 - 20, 0])
+        rotate([-90, 0, 0])
+                rotate([0, 0, 0])
+                    cylinder(h = 40, r = 13.5, $fn = 6)
+                    ;
+   // nut middle; maybe I do not need this
+    translate([0, length / 2, 0])
+        rotate([-90, 0, 0])
+                rotate([0, 0, 0])
+                    cylinder(h = 40, r = 13.5, $fn = 6);
+}
+//---------------------------------------------------------------------------------------

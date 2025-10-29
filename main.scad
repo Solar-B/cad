@@ -71,6 +71,7 @@ handle_bar_height = 250;
 //---------------------------------------------------------------------------------------
 crank_arm_length = 170;
 crank_angle = 0;
+crank_y = wheel_radius_back + 70;
 //---------------------------------------------------------------------------------------
 module wheel_front_support()
 {
@@ -220,12 +221,20 @@ module frame_back()
         translate([0, + 75, -21])
             cylinder(h = 42, r = 4);
             
+        translate([9, + 590, -21])
+            cylinder(h = 42, r = 6);
+            
+            
     }
     
 // vertical        
     translate([-5, 0, 20])
-        pipe_50_30(frame_height_back)
-                ;        
+    difference(){
+        pipe_50_30(frame_height_back);        
+        translate([12, -21, 405])
+        rotate([-90, 0, 0])
+            cylinder(h = 42, r = 6);
+    }
 }
 //---------------------------------------------------------------------------------------
 module seat()
@@ -385,7 +394,7 @@ module trike()
 //wheel, back
     translate([wheels_front_back_distance, 0, wheel_radius_front])
         rotate([90, 0, 0])
-            wheel(wheel_radius_front, wheel_thick, 7);
+            wheel_with_gears(wheel_radius_front, wheel_thick, 7);
             
 //back frame
      translate([wheels_front_back_distance + wheel_radius_front + 42, -0, wheel_radius_front - 45])
@@ -465,7 +474,7 @@ module trike()
                 pipe_panel_suport_center(610, 65)
                 ;
 // crank
-    translate([human_pos_X + crank_arm_length, 0, 350])
+    translate([human_pos_X + crank_arm_length, 0, crank_y])
         rotate ([90, 0, 0]) 
                 crank_with_tail(200);    
 
@@ -478,7 +487,7 @@ module trike()
         handle_bar();
         
 // direction shaft        
-    translate([0, -100, wheel_radius_front - 105])
+    translate([0, -65, wheel_radius_front - 105])
         rotate([0, 0, -90])
             direction_control_shaft(bar_length = 865);
 

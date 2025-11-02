@@ -22,17 +22,16 @@ module solar_panel(panel_size)
         color("black")
             cube([panel_size[0], panel_size[1], 2] - [20, 20, 0]);
             
-// electric            
+// electric contact
     translate([panel_size[0] - 100 - 25 - 25, panel_size[1] / 2 - 50, panel_size[2] - 20])
         color("black")
             cube([100, 100, 20]);
-    
 }
 //---------------------------------------------------------------------------------------
 module solar_panel_with_enhanced_frame(panel_size)
 {
     translate([0, 0, 20]){
-        //solar_panel(panel_size);
+        solar_panel(panel_size);
 // support; on length
 
         translate([25, panel_size[1] - 20 -5, 1])
@@ -74,7 +73,6 @@ module corner_with_bar(corner_length, top = 0, bottom = 0, bar_offset = 6)
     translate([bar_offset, -bottom, -6])
         rotate([-90, 0, 0])
             cylinder(corner_length + top + bottom, r = 6);
-    
 }
 //---------------------------------------------------------------------------------------
 module corner_with_hinge_bar(corner_length, top = 0, bottom = 0, bar_offset = 6)

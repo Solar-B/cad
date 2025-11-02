@@ -118,6 +118,34 @@ module solar_panel_with_enhanced_frame_and_support_with_hinge_bar(panel_size)
             corner_with_bar(panel_size[1], 0, 0, bar_offset = 19);
 }
 //---------------------------------------------------------------------------------------
+module solar_wing(angle, panel_size, angle2, space)
+{
+    rotate([0, 0, angle2])
+        rotate([-angle, 0, 0])
+        translate([0, space, 0]) 
+            solar_panel_with_enhanced_frame_and_support_with_bar(panel_size);
+        
+    rotate([0, 0, -angle2]) 
+        rotate([angle, 0, 0]) 
+            translate([0, - space, 0]) 
+            mirror([0, 1, 0])
+                solar_panel_with_enhanced_frame_and_support_with_bar(panel_size);
+}
+//---------------------------------------------------------------------------------------
+module solar_wing_with_hinges(angle, panel_size, angle2, space)
+{
+    rotate([0, 0, angle2])
+        rotate([-angle, 0, 0])
+        translate([0, space, 0]) 
+            solar_panel_with_enhanced_frame_and_support_with_hinge_bar(panel_size);
+        
+    rotate([0, 0, -angle2]) 
+        rotate([angle, 0, 0]) 
+            translate([0, - space, 0]) 
+                mirror([0, 1, 0])
+                solar_panel_with_enhanced_frame_and_support_with_hinge_bar(panel_size);
+}
+//---------------------------------------------------------------------------------------
 
 //solar_panel(solar_panel_front_size);
 

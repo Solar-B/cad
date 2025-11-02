@@ -4,7 +4,7 @@
 
 // Version: 23.7
 // since: 2025.10.28
-// last update: 2025.10.28
+// last update: 2025.11.2
 
 // Maker: Mihai Oltean
 // https://mihaioltean.github.io
@@ -67,7 +67,8 @@ frame_bottom_rotation_angle = 12.3;
 angle_wheel = 30;
 //---------------------------------------------------------------------------------------
 handle_bar_length = 800;
-handle_bar_height = 250;
+handle_bar_arm_height = 300;
+handle_bar_arm_angle = 20;
 //---------------------------------------------------------------------------------------
 crank_arm_length = 170;
 crank_angle = 0;
@@ -314,14 +315,14 @@ module handle_bar()
 {
     translate([0, -handle_bar_length / 2, 0])
         rotate([-90, 0, 0])
-            pipe_50_30(handle_bar_length);
+            pipe_50_20(handle_bar_length);
             
     translate([0, -handle_bar_length / 2 + 20, 0])
-    rotate([0, -20, 0])
-        cylinder_32(handle_bar_height);
+        rotate([0, -handle_bar_arm_angle, 0])
+            cylinder_1_per_2(handle_bar_arm_height);
     translate([0, handle_bar_length / 2 - 20, 0])
-    rotate([0, -20, 0])
-        cylinder_32(handle_bar_height);
+        rotate([0, -handle_bar_arm_angle, 0])
+            cylinder_1_per_2(handle_bar_arm_height);
 }
 //---------------------------------------------------------------------------------------
 module crank_with_tail(length)

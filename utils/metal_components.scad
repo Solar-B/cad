@@ -6,7 +6,7 @@
 // https://mihaioltean.github.io
 // License: MIT
 
-// last update 2025.10.07
+// last update 2025.11.2
 //---------------------------------------------------------------------------------------
 module pipe_50_30(length)
 {
@@ -17,6 +17,18 @@ module pipe_50_30(length)
             translate([2, 2, -2])
             color("DarkSlateGray")
                 cube([46, 26, length + 4]);
+        }
+}
+//---------------------------------------------------------------------------------------
+module pipe_50_20(length)
+{
+    translate([-25, -10, 0])
+        difference(){
+            color("DarkSlateGray")
+                cube([50, 20, length]);
+            translate([2, 2, -2])
+            color("DarkSlateGray")
+                cube([46, 16, length + 4]);
         }
 }
 //---------------------------------------------------------------------------------------
@@ -50,6 +62,17 @@ module cylinder_27(length)
         translate([0, 0, -2])
         color("DarkSlateGray")
         cylinder(h= length + 4, r = 11.5);
+    }
+}
+//---------------------------------------------------------------------------------------
+module cylinder_1_per_2(length)
+{
+    difference(){
+        color("DarkSlateGray")
+            cylinder(h= length, r = 10.6);
+        translate([0, 0, -2])
+        color("DarkSlateGray")
+        cylinder(h= length + 4, r = 8.6);
     }
 }
 //---------------------------------------------------------------------------------------

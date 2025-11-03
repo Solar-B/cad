@@ -6,7 +6,7 @@
 // https://mihaioltean.github.io
 // License: MIT
 
-// last update 2025.11.2
+// last update 2025.11.3
 //---------------------------------------------------------------------------------------
 module pipe_50_30(length)
 {
@@ -81,9 +81,9 @@ module corner_30_30_3(length)
     difference(){
         color("DarkSlateGray")
             cube([30, length, 30]);
-        translate([3, -2, 3])
+        translate([3, -3, 3])
             color("DarkSlateGray")
-                cube([28, length + 4, 28]);
+                cube([28, length + 6, 28]);
     }
 }
 //---------------------------------------------------------------------------------------
@@ -122,21 +122,43 @@ module hinge_bar_with_nuts(length, top, bottom)
             cylinder(h = length + top + bottom, r = 8);
 
    // nut; top
-    translate([0, top+20, 0])
+    translate([0, bottom+30, 0])
         rotate([-90, 0, 0])
                 rotate([0, 0, 0])
                     cylinder(h = 40, r = 13.5, $fn = 6)
                     ;
    // nut; bottom
-    translate([0, length - 40 - 20, 0])
+    translate([0, length - 40 - 30 + bottom, 0])
         rotate([-90, 0, 0])
                 rotate([0, 0, 0])
                     cylinder(h = 40, r = 13.5, $fn = 6)
                     ;
+                    /*
    // nut middle; maybe I do not need this
     translate([0, length / 2, 0])
         rotate([-90, 0, 0])
                 rotate([0, 0, 0])
                     cylinder(h = 40, r = 13.5, $fn = 6);
+*/                    
 }
 //---------------------------------------------------------------------------------------
+module corner_with_bar(corner_length, top = 0, bottom = 0, bar_offset_x = 6)
+{
+    corner_30_30_3(corner_length);
+    translate([bar_offset_x, -bottom, -6])
+        rotate([-90, 0, 0])
+            cylinder(corner_length + top + bottom, r = 6);
+}
+//---------------------------------------------------------------------------------------
+module corner_with_hinge_bar(corner_length, top = 0, bottom = 0, bar_offset_x = 6)
+{
+    corner_30_30_3(corner_length);
+            
+    translate ([bar_offset_x, -bottom, - 12]) {
+            hinge_bar_with_nuts(corner_length, top, bottom);
+    }
+}
+//---------------------------------------------------------------------------------------
+//corner_with_hinge_bar(corner_length = 1000, top = 20, bottom = 50, bar_offset_x = 6);
+
+corner_30_30_3(100);

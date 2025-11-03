@@ -67,36 +67,18 @@ module solar_panel_with_enhanced_frame(panel_size)
 */
 }
 //---------------------------------------------------------------------------------------
-module corner_with_bar(corner_length, top = 0, bottom = 0, bar_offset = 6)
-{
-    corner_30_30_3(corner_length);
-    translate([bar_offset, -bottom, -6])
-        rotate([-90, 0, 0])
-            cylinder(corner_length + top + bottom, r = 6);
-}
-//---------------------------------------------------------------------------------------
-module corner_with_hinge_bar(corner_length, top = 0, bottom = 0, bar_offset = 6)
-{
-    corner_30_30_3(corner_length);
-            
-    translate ([bar_offset, 0, -3 - 12]) {
-        translate([0, -7, 0])
-            hinge_bar_with_nuts(corner_length, top, bottom);
-    }
-}
-//---------------------------------------------------------------------------------------
 module solar_panel_with_enhanced_frame_and_support_with_bar(panel_size)
 {
     
     solar_panel_with_enhanced_frame(panel_size);
 // left side
     translate ([-3, 0, -3]) 
-        corner_with_bar(panel_size[1], 50, 20, bar_offset = 6)// these values are hard-coded
+        corner_with_bar(panel_size[1], 50, 20, bar_offset_x = 6)// these values are hard-coded
         ;
 // right side        
     translate ([panel_size[0] + 3, -0, -3]) 
         mirror([1, 0, 0])
-            corner_with_bar(panel_size[1], 0, 0, bar_offset = 19);
+            corner_with_bar(panel_size[1], 0, 0, bar_offset_x = 19);
 }
 //---------------------------------------------------------------------------------------
 module solar_panel_with_enhanced_frame_and_support_with_hinge_bar(panel_size)
@@ -107,13 +89,13 @@ module solar_panel_with_enhanced_frame_and_support_with_hinge_bar(panel_size)
     // hinge            
     
     translate ([-3, 0, -3]) 
-        corner_with_hinge_bar(panel_size[1], 7, 25, bar_offset = 4)
+        corner_with_hinge_bar(panel_size[1], 7, 25, bar_offset_x = 4)
         ;
         
 // right side        
     translate ([panel_size[0] + 3, -0, -3]) 
         mirror([1, 0, 0])
-            corner_with_bar(panel_size[1], 0, 0, bar_offset = 19);
+            corner_with_bar(panel_size[1], 0, 0, bar_offset_x = 19);
 }
 //---------------------------------------------------------------------------------------
 module solar_wing(angle, panel_size, angle2, space)
@@ -149,6 +131,8 @@ module solar_wing_with_hinges(angle, panel_size, angle2, space)
 
 //solar_panel_with_enhanced_frame([1485, 668, 30]);
 
-solar_panel_with_enhanced_frame_and_support_with_bar([1485, 668, 30]);
+//solar_panel_with_enhanced_frame_and_support_with_bar([1485, 668, 30]);
+
+solar_panel_with_enhanced_frame_and_support_with_hinge_bar([1485, 668, 30]);
 
 //corner_with_bar(corner_length = 1000, top = 10, bottom = 30);

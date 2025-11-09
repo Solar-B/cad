@@ -4,7 +4,7 @@
 
 // Version: 23.7
 // since: 2025.10.28
-// last update: 2025.11.2
+// last update: 2025.11.09
 
 // Maker: Mihai Oltean
 // https://mihaioltean.github.io
@@ -329,6 +329,11 @@ module crank_with_tail(length)
                 pipe_50_30(length);
 }
 //---------------------------------------------------------------------------------------
+module chain_deviation()
+{
+    
+}
+//---------------------------------------------------------------------------------------
 module trike()
 {
   
@@ -501,9 +506,9 @@ module trike_with_human()
             human(human_angle);
 }
 //---------------------------------------------------------------------------------------
-//trike_with_panels_and_human();
+trike_with_panels_and_human();
 //trike_with_human();
-trike_with_panels();
+//trike_with_panels();
 //trike();
 
 //solar_panel_with_support(solar_panel_front_size);

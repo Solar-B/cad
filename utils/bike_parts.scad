@@ -24,6 +24,12 @@ module wheel(radius, thick, shaft_thick = 7)
         cylinder(h = 112, r = 11, center = true);
         //ax
         cylinder(h = 180, r = shaft_thick, center = true);
+        
+//spokes
+        for (i=[0:20])
+            rotate([0, 0, i*18])
+                rotate([0, 90, 0])
+                    cylinder(h = radius, r = 2);
     }
 }
 //---------------------------------------------------------------------------------------
@@ -72,6 +78,6 @@ module crank(arm_length, arm_pos_angle, disk_radius = 60)
 }
 
 //---------------------------------------------------------------------------------------
-//wheel(100);
+wheel(radius = 270, 50, 10);
 
-crank(100, 10, 60);
+//crank(100, 10, 60);

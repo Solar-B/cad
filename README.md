@@ -28,7 +28,7 @@ Note that left button drag means rotate, right button drag means move and the wh
 
 ## Project structure
 
-[utils](basic) folder contains basic components (bike parts, metal components, solar panels etc) required to design the Solar Bear.
+[utils](utils) folder contains basic components (bike parts, metal components, solar panels etc) required to design the _Solar Bear_.
 
 [main.scad](main.scad) is the main file of the project.
 

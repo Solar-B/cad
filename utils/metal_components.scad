@@ -8,7 +8,7 @@
 
 // last update 2025.11.3
 //---------------------------------------------------------------------------------------
-module pipe_50_30(length)
+module pipe_50_30_2(length)
 {
     translate([-25, -15, 0])
         difference(){
@@ -20,7 +20,7 @@ module pipe_50_30(length)
         }
 }
 //---------------------------------------------------------------------------------------
-module pipe_50_20(length)
+module pipe_50_20_2(length)
 {
     translate([-25, -10, 0])
         difference(){
@@ -32,7 +32,7 @@ module pipe_50_20(length)
         }
 }
 //---------------------------------------------------------------------------------------
-module pipe_40_40(length)
+module pipe_40_40_2(length)
 {
     translate([-20, -20, 0])
         difference(){
@@ -87,6 +87,17 @@ module corner_30_30_3(length)
     }
 }
 //---------------------------------------------------------------------------------------
+module corner_30_30_2_5(length)
+{
+    difference(){
+        color("DarkSlateGray")
+            cube([30, length, 30]);
+        translate([2.5, -3, 2.5])
+            color("DarkSlateGray")
+                cube([28, length + 6, 28]);
+    }
+}
+//---------------------------------------------------------------------------------------
 module corner_40_40_4(length)
 {
     difference(){
@@ -95,6 +106,17 @@ module corner_40_40_4(length)
         translate([-2, 4, 4])
             color("DarkSlateGray")
                 cube([length + 4, 38, 38]);
+    }
+}
+//---------------------------------------------------------------------------------------
+module corner_50_50_5(length)
+{
+    difference(){
+        color("DarkSlateGray")
+            cube([length, 50, 50]);
+        translate([-2, 5, 5])
+            color("DarkSlateGray")
+                cube([length + 4, 46, 46]);
     }
 }
 //---------------------------------------------------------------------------------------
@@ -161,4 +183,4 @@ module corner_with_hinge_bar(corner_length, top = 0, bottom = 0, bar_offset_x = 
 //---------------------------------------------------------------------------------------
 //corner_with_hinge_bar(corner_length = 1000, top = 20, bottom = 50, bar_offset_x = 6);
 
-corner_30_30_3(100);
+corner_50_50_5(100);

@@ -43,7 +43,7 @@ module pipe_40_40_2(length)
         }
 }
 //---------------------------------------------------------------------------------------
-module cylinder_32(length)
+module cylinder_32(length) // 1 inch
 {
     difference(){
         color("DarkSlateGray")
@@ -54,7 +54,7 @@ module cylinder_32(length)
     }
 }
 //---------------------------------------------------------------------------------------
-module cylinder_27(length)
+module cylinder_27(length) // 3/4 inches
 {
     difference(){
         color("DarkSlateGray")
@@ -65,7 +65,7 @@ module cylinder_27(length)
     }
 }
 //---------------------------------------------------------------------------------------
-module cylinder_1_per_2(length)
+module cylinder_1_2(length) // 1/2 inches
 {
     difference(){
         color("DarkSlateGray")

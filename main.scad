@@ -313,10 +313,10 @@ module handle_bar()
             
     translate([0, -handle_bar_length / 2 + 20, 0])
         rotate([0, -handle_bar_arm_angle, 0])
-            cylinder_1_per_2(handle_bar_arm_height);
+            cylinder_1_2(handle_bar_arm_height);
     translate([0, handle_bar_length / 2 - 20, 0])
         rotate([0, -handle_bar_arm_angle, 0])
-            cylinder_1_per_2(handle_bar_arm_height);
+            cylinder_1_2(handle_bar_arm_height);
 }
 //---------------------------------------------------------------------------------------
 module crank_with_tail(length)

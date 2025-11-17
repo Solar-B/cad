@@ -80,7 +80,7 @@ module wheel_front_support()
     translate([0, 0, -135])
         cylinder(h = 135, r = 15);
 // wheel 10mm thick support
-    translate([-25, -11, 4])
+    translate([-25, -11, 5])
         cube([50, 10, 40]);
         
 // corner
@@ -90,7 +90,7 @@ module wheel_front_support()
         difference(){
             corner_50_50_5(240);
             // holes for direction control bar
-            translate([15, 25, -1]) cylinder (h = 6, r = 5);
+            translate([15, 25, -1]) cylinder (h = 7, r = 5);
         }
 }
 //---------------------------------------------------------------------------------------

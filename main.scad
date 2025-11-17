@@ -2,7 +2,7 @@
 // A solar-hybrid trike
 // https://github.com/solar-b
 
-// Version: 23.8
+// Version: 24
 // since: 2025.10.28
 // last update: 2025.11.17
 
@@ -184,7 +184,7 @@ module frame_front()
       
         // vertical
     translate([5, 0, 20])
-              pipe_50_30_2(frame_height_front)
+              pipe_40_20_1_5(frame_height_front)
                 ;        
                 
 // direction control corner
@@ -231,7 +231,7 @@ module frame_back()
 // vertical        
     translate([-5, 0, 20])
     difference(){
-        pipe_50_30_2(frame_height_back);
+        pipe_40_20_1_5(frame_height_back);
         translate([12, -21, 405])
         rotate([-90, 0, 0])
             cylinder(h = 42, r = 6);
@@ -251,7 +251,7 @@ module seat()
 module pipe_panel_suport_center(_length, angle)
 {
     difference(){
-        pipe_50_30_2(length = _length);
+        pipe_40_20_1_5(length = _length);
         translate([-26, -15, _length])
             rotate([-(90-angle), 0, 0])
                 cube([52, 59, 30]);
@@ -262,7 +262,7 @@ module frame_bottom()
 {
     difference(){    
         rotate([0, 90, 0])
-            pipe_50_30_2(1850);
+            pipe_40_20_1_5(1850);
 /*
             translate([-26, -18, -11])
                 rotate([frame_bottom_rotation_angle, 0, 0])
@@ -294,7 +294,7 @@ module frame_bottom()
         rotate([0, 0, -frame_bottom_rotation_angle]){
             difference(){
                 rotate([0, 90, 0])
-                    pipe_50_30_2(2 * wheel_radius_back + 50);
+                    pipe_40_20_1_5(2 * wheel_radius_back + 50);
                     // hole for wheel hub
                     translate([wheel_radius_back - 15, -16, 0])
                         rotate([-90, 0, 0])
@@ -309,7 +309,7 @@ module handle_bar()
 {
     translate([0, -handle_bar_length / 2, 0])
         rotate([-90, 0, 0])
-            pipe_50_20_2(handle_bar_length);
+            pipe_40_20_1_5(handle_bar_length);
             
     translate([0, -handle_bar_length / 2 + 20, 0])
         rotate([0, -handle_bar_arm_angle, 0])
@@ -326,7 +326,7 @@ module crank_with_tail(length)
     translate([-length, -0, 0])
         rotate([0, 90, 0])
             rotate([0, 0, 90])
-                pipe_50_30_2(length);
+                pipe_40_20_1_5(length);
 }
 //---------------------------------------------------------------------------------------
 module chain_deviation()
@@ -377,7 +377,7 @@ module trike()
     translate([16.5, -0, wheel_radius_front + 356]) 
         rotate([0, 90 + 29.3, 0])
             difference(){
-                pipe_50_30_2(903);
+                pipe_40_20_1_5(903);
                 translate ([0, -1, 727])
                     rotate([-90, 0, 0])
                         cylinder(r = 17, h = 52, center = true);
@@ -390,13 +390,13 @@ module trike()
 // frame top front-back
     translate([787, -0, wheel_radius_front -85]) 
         rotate([0, 90, 0])
-            pipe_50_30_2(500);
+            pipe_40_20_1_5(500);
 
 // frame top, back - center
     translate([wheels_front_back_distance + wheel_radius_front + 24, -0, wheel_radius_front + 513]) 
         rotate([0, -(90+29), 0])
             difference(){
-                pipe_50_30_2(1228);
+                pipe_40_20_1_5(1228);
                 translate ([0, -1, 1057])
                     rotate([-90, 0, 0])
                         cylinder(r = 17, h = 52, center = true);
@@ -409,13 +409,13 @@ module trike()
 // FIRST shaft between frames, bottom 1
         translate ([first_bottom_bar_at, 320, wheel_radius_back])
             rotate([90, 0, 0])
-                cylinder_27 (640);
+                cylinder_1_2 (640);
 
 // SECOND
 // horizontal bar
     translate ([second_bottom_bar_at, 252, wheel_radius_back])
         rotate([90, 0, 0])
-            cylinder_32 (504)
+            cylinder_1_2(504)
             ;         
 //  solar panels, second support; internal
     translate([second_bottom_bar_at, -268, wheel_radius_back - 16])

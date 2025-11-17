@@ -20,15 +20,15 @@ module pipe_50_30_2(length)
         }
 }
 //---------------------------------------------------------------------------------------
-module pipe_50_20_2(length)
+module pipe_40_20_1_5(length)
 {
-    translate([-25, -10, 0])
+    translate([-20, -10, 0])
         difference(){
             color("DarkSlateGray")
-                cube([50, 20, length]);
-            translate([2, 2, -2])
+                cube([40, 20, length]);
+            translate([1.5, 1.5, -2])
             color("DarkSlateGray")
-                cube([46, 16, length + 4]);
+                cube([37, 17, length + 4]);
         }
 }
 //---------------------------------------------------------------------------------------
@@ -41,28 +41,6 @@ module pipe_40_40_2(length)
             color("DarkSlateGray")
                 cube([36, 36, length + 4]);
         }
-}
-//---------------------------------------------------------------------------------------
-module cylinder_32(length) // 1 inch
-{
-    difference(){
-        color("DarkSlateGray")
-            cylinder(h= length, r = 16);
-        translate([0, 0, -2])
-        color("DarkSlateGray")
-        cylinder(h= length + 4, r = 14);
-    }
-}
-//---------------------------------------------------------------------------------------
-module cylinder_27(length) // 3/4 inches
-{
-    difference(){
-        color("DarkSlateGray")
-            cylinder(h= length, r = 13.5);
-        translate([0, 0, -2])
-        color("DarkSlateGray")
-        cylinder(h= length + 4, r = 11.5);
-    }
 }
 //---------------------------------------------------------------------------------------
 module cylinder_1_2(length) // 1/2 inches

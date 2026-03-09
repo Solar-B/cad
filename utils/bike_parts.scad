@@ -9,7 +9,7 @@
 // last update 2025.10.26
 
 //---------------------------------------------------------------------------------------
-module wheel(radius, thick, shaft_thick = 7)
+module wheel(radius, thick, shaft_thick = 7, small_hub_length = 112)
 {
     color("blue"){
     // wheel
@@ -21,7 +21,7 @@ module wheel(radius, thick, shaft_thick = 7)
         // hub big
         cylinder(h = 85, r = 17.5, center = true);
         // hub
-        cylinder(h = 112, r = 11, center = true);
+        cylinder(h = small_hub_length, r = 11, center = true);
         //ax
         cylinder(h = 180, r = shaft_thick, center = true);
         
@@ -33,16 +33,16 @@ module wheel(radius, thick, shaft_thick = 7)
     }
 }
 //---------------------------------------------------------------------------------------
-module wheel_with_gears(radius, thick, shaft_thick = 7, gear_thick = 2, gear_radius = 45)
+module wheel_with_gears(radius, thick, _shaft_thick = 7, gear_thick = 2, gear_radius = 45, hub_length = 112)
 {
-    wheel(radius, thick, shaft_thick = 7);
+    wheel(radius, thick, _shaft_thick, hub_length);
     translate([0, 0, -45])
-        cylinder(h =  gear_thick, r = gear_radius);
+        cylinder(h = gear_thick, r = gear_radius);
 }
 //---------------------------------------------------------------------------------------
-module wheel_with_break_disk(radius, thick, shaft_thick = 7, break_disk_radius = 80)
+module wheel_with_break_disk(radius, thick, shaft_thick = 7, break_disk_radius = 80, _hub_length = 112)
 {
-    wheel(radius, thick, shaft_thick);
+    wheel(radius, thick, shaft_thick, _hub_length);
     // break
     translate([0, 0, -43]) 
         cylinder(r = break_disk_radius, h = 2);
@@ -78,6 +78,8 @@ module crank(arm_length, arm_pos_angle, disk_radius = 60)
 }
 
 //---------------------------------------------------------------------------------------
-wheel(radius = 270, 50, 10);
+//wheel(radius = 270, 50, 10, 130);
+
+wheel_with_gears(radius = 270, thick = 50, _shaft_thick = 7, gear_thick = 2, gear_radius = 45, hub_length = 130);
 
 //crank(100, 10, 60);

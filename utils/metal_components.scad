@@ -6,29 +6,65 @@
 // https://mihaioltean.github.io
 // License: MIT
 
-// last update 2025.11.3
+// last update 2025.12.02
 //---------------------------------------------------------------------------------------
-module pipe_50_30_2(length)
+module pipe_50_20_2(length)
 {
-    translate([-25, -15, 0])
+    translate([-25, -10, 0])
         difference(){
             color("DarkSlateGray")
-                cube([50, 30, length]);
+                cube([50, 20, length]);
             translate([2, 2, -2])
             color("DarkSlateGray")
-                cube([46, 26, length + 4]);
+                cube([46, 16, length + 4]);
         }
 }
 //---------------------------------------------------------------------------------------
-module pipe_40_20_1_5(length)
+module pipe_40_20_2(length)
 {
     translate([-20, -10, 0])
         difference(){
             color("DarkSlateGray")
                 cube([40, 20, length]);
-            translate([1.5, 1.5, -2])
+            translate([2, 2, -2])
             color("DarkSlateGray")
-                cube([37, 17, length + 4]);
+                cube([36, 16, length + 4]);
+        }
+}
+//---------------------------------------------------------------------------------------
+module pipe_30_20_2(length)
+{
+    translate([-15, -10, 0])
+        difference(){
+            color("DarkSlateGray")
+                cube([30, 20, length]);
+            translate([2, 2, -2])
+            color("DarkSlateGray")
+                cube([26, 16, length + 4]);
+        }
+}
+//---------------------------------------------------------------------------------------
+module pipe_20_20_2(length)
+{
+    translate([-10, -10, 0])
+        difference(){
+            color("DarkSlateGray")
+                cube([20, 20, length]);
+            translate([2, 2, -2])
+            color("DarkSlateGray")
+                cube([16, 16, length + 4]);
+        }
+}
+//---------------------------------------------------------------------------------------
+module pipe_30_30_2(length)
+{
+    translate([-15, -15, 0])
+        difference(){
+            color("DarkSlateGray")
+                cube([30, 30, length]);
+            translate([2, 2, -2])
+            color("DarkSlateGray")
+                cube([26, 26, length + 4]);
         }
 }
 //---------------------------------------------------------------------------------------
@@ -65,14 +101,25 @@ module corner_30_30_3(length)
     }
 }
 //---------------------------------------------------------------------------------------
-module corner_30_30_2_5(length)
+module corner_25_25_3(length)
 {
     difference(){
         color("DarkSlateGray")
-            cube([30, length, 30]);
-        translate([2.5, -3, 2.5])
+            cube([25, length, 25]);
+        translate([3, -3, 3])
             color("DarkSlateGray")
-                cube([28, length + 6, 28]);
+                cube([23, length + 6, 23]);
+    }
+}
+//---------------------------------------------------------------------------------------
+module corner_40_30_3(length)
+{
+    difference(){
+        color("DarkSlateGray")
+            cube([40, length, 30]);
+        translate([3, -3, 3])
+            color("DarkSlateGray")
+                cube([38, length + 6, 28]);
     }
 }
 //---------------------------------------------------------------------------------------
@@ -83,7 +130,7 @@ module corner_40_40_4(length)
             cube([length, 40, 40]);
         translate([-2, 4, 4])
             color("DarkSlateGray")
-                cube([length + 4, 38, 38]);
+                cube([length + 4, 40, 40]);
     }
 }
 //---------------------------------------------------------------------------------------
@@ -115,50 +162,6 @@ module T_40_5(length)
     }
 }
 //---------------------------------------------------------------------------------------
-module hinge_bar_with_nuts(length, top, bottom)
-{
-    color("DarkGreen") 
-    rotate([-90, 0, 0])
-            cylinder(h = length + top + bottom, r = 8);
 
-   // nut; top
-    translate([0, bottom+30, 0])
-        rotate([-90, 0, 0])
-                rotate([0, 0, 0])
-                    cylinder(h = 40, r = 13.5, $fn = 6)
-                    ;
-   // nut; bottom
-    translate([0, length - 40 - 30 + bottom, 0])
-        rotate([-90, 0, 0])
-                rotate([0, 0, 0])
-                    cylinder(h = 40, r = 13.5, $fn = 6)
-                    ;
-                    /*
-   // nut middle; maybe I do not need this
-    translate([0, length / 2, 0])
-        rotate([-90, 0, 0])
-                rotate([0, 0, 0])
-                    cylinder(h = 40, r = 13.5, $fn = 6);
-*/                    
-}
-//---------------------------------------------------------------------------------------
-module corner_with_bar(corner_length, top = 0, bottom = 0, bar_offset_x = 6)
-{
-    corner_30_30_3(corner_length);
-    translate([bar_offset_x, -bottom, -6])
-        rotate([-90, 0, 0])
-            cylinder(corner_length + top + bottom, r = 6);
-}
-//---------------------------------------------------------------------------------------
-module corner_with_hinge_bar(corner_length, top = 0, bottom = 0, bar_offset_x = 6)
-{
-    corner_30_30_3(corner_length);
-            
-    translate ([bar_offset_x, -bottom, - 12]) {
-            hinge_bar_with_nuts(corner_length, top, bottom);
-    }
-}
-//---------------------------------------------------------------------------------------
-//corner_with_hinge_bar(corner_length = 1000, top = 20, bottom = 50, bar_offset_x = 6);
+//corner_50_50_5(100);
 
-corner_50_50_5(100);

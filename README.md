@@ -20,7 +20,7 @@ Make sure that you have the latest development snapshot which can be downloaded 
 
 ## How to compile
 
-Open [main.scad](main.scad) file with _OpenSCAD_ and press the _Preview_ button (or F5) ... and wait for several seconds (or minutes if you have a slow computer).
+Open [solar_b.scad](solar_b.scad) file with _OpenSCAD_ and press the _Preview_ button (or F5) ... and wait for several seconds (or minutes if you have a slow computer).
 
 Then press _View all_ button (or Ctrl+Shift+V) to view the entire drawing and use the mouse to navigate.
 
@@ -30,7 +30,7 @@ Note that left button drag means rotate, right button drag means move and the wh
 
 [utils](utils) folder contains basic components (bike parts, metal components, solar panels etc) required to design the _Solar Bear_.
 
-[main.scad](main.scad) is the main file of the project.
+[solar_b.scad](solar_b.scad) is the main file of the project.
 
 ## Project location
 

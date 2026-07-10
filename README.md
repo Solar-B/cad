@@ -1,4 +1,4 @@
-![solar-bear](https://github.com/Solar-B/.github/raw/main/profile/solar_b.png)
+![solar-bear](solar_bear_logo.png)
 
 # Solar Bear
 

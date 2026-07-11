@@ -6,7 +6,7 @@
 // https://mihaioltean.github.io
 // License: MIT
 
-// last update 2025.12.02
+// last update 2026.07.10
 //---------------------------------------------------------------------------------------
 module pipe_50_20_2(length)
 {
@@ -29,6 +29,18 @@ module pipe_40_20_2(length)
             translate([2, 2, -2])
             color("DarkSlateGray")
                 cube([36, 16, length + 4]);
+        }
+}
+//---------------------------------------------------------------------------------------
+module pipe_40_10_1_5(length)
+{
+    translate([-20, -5, 0])
+        difference(){
+            color("DarkSlateGray")
+                cube([40, 10, length]);
+            translate([2, 2, -2])
+            color("DarkSlateGray")
+                cube([36, 7, length + 4]);
         }
 }
 //---------------------------------------------------------------------------------------
@@ -56,6 +68,18 @@ module pipe_20_20_2(length)
         }
 }
 //---------------------------------------------------------------------------------------
+module pipe_15_15_1_5(length)
+{
+    translate([-7.5, -7.5, 0])
+        difference(){
+            color("DarkSlateGray")
+                cube([15, 15, length]);
+            translate([1.5, 1.5, -2])
+            color("DarkSlateGray")
+                cube([12, 12, length + 4]);
+        }
+}
+//---------------------------------------------------------------------------------------
 module pipe_30_30_2(length)
 {
     translate([-15, -15, 0])
@@ -79,6 +103,17 @@ module pipe_40_40_2(length)
         }
 }
 //---------------------------------------------------------------------------------------
+module pipe_40_30_2(length)
+{
+    translate([-20, -15, 0])
+        difference(){
+            color("DarkSlateGray") cube([40, 30, length]);
+            translate([2, 2, -2])
+            color("DarkSlateGray")
+                cube([36, 26, length + 4]);
+        }
+}
+//---------------------------------------------------------------------------------------
 module cylinder_1_2(length) // 1/2 inches
 {
     difference(){
@@ -98,6 +133,28 @@ module corner_30_30_3(length)
         translate([3, -3, 3])
             color("DarkSlateGray")
                 cube([28, length + 6, 28]);
+    }
+}
+//---------------------------------------------------------------------------------------
+module corner_30_23_3(length)
+{
+    difference(){
+        color("DarkSlateGray")
+            cube([30, length, 23]);
+        translate([3, -3, 3])
+            color("DarkSlateGray")
+                cube([28, length + 6, 21]);
+    }
+}
+//---------------------------------------------------------------------------------------
+module corner_23_30_3(length)
+{
+    difference(){
+        color("DarkSlateGray")
+            cube([23, length, 30]);
+        translate([3, -3, 3])
+            color("DarkSlateGray")
+                cube([24, length + 6, 28]);
     }
 }
 //---------------------------------------------------------------------------------------
@@ -134,14 +191,13 @@ module corner_40_40_4(length)
     }
 }
 //---------------------------------------------------------------------------------------
-module corner_50_50_5(length)
+module corner_angled_40_40_4(length, angle = 90)
 {
-    difference(){
-        color("DarkSlateGray")
-            cube([length, 50, 50]);
-        translate([-2, 5, 5])
-            color("DarkSlateGray")
-                cube([length + 4, 46, 46]);
+    color("DarkSlateGray"){
+        cube([length, 4, 40]);
+        translate([0, 0, 4])
+            rotate([-angle, 0, 0])
+                cube([length, 4, 40]);
     }
 }
 //---------------------------------------------------------------------------------------
@@ -164,4 +220,6 @@ module T_40_5(length)
 //---------------------------------------------------------------------------------------
 
 //corner_50_50_5(100);
+//corner_23_30_3(100);
 
+corner_angled_40_40_4(length = 100, angle = 100);

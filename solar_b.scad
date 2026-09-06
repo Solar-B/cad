@@ -9,8 +9,8 @@
 // License: MIT
 
 //---------------------------------------------------------------------------------------
-// Version: 28.1
-// last update: 2026.07.11.0
+// Version: 28.2
+// last update: 2026.09.06
 //---------------------------------------------------------------------------------------
 include <utils/screws_nuts_washers_params.scad>
 //---------------------------------------------------------------------------------------
@@ -46,8 +46,13 @@ wheel_hub_small_front = 112;
 wheel_hub_small_rear = 127 +3;
 //---------------------------------------------------------------------------------------
 
-wheels_front_distance = 1400;
-dist_bearing_to_wheel = 27;
+wheels_front_distance_between_supports = 1200; // the distance between front wheels support
+bearing_wheel_support_to_edge_distance = 27;
+
+real_front_wheel_distance = wheels_front_distance_between_supports + 2 * bearing_wheel_support_to_edge_distance + wheel_hub_small_front + wheel_thick; // distance between wheel external edges
+
+echo(real_front_wheel_distance = real_front_wheel_distance);
+
 wheels_front_rear_distance = 1570;
 bottom_frame_length = wheels_front_rear_distance + wheel_radius_rear + 48;
 
@@ -56,7 +61,7 @@ frame_front_distance_between_bottom_frames = 468;
 //---------------------------------------------------------------------------------------
 wing_support_dist_to = 1470;
 //---------------------------------------------------------------------------------------
-human_hip_angle = 45;
+human_hip_angle = 50;
 human_pos_X = wing_front_offset_X + 30;
 human_pos_Y = 380;
 //---------------------------------------------------------------------------------------
@@ -73,16 +78,16 @@ handle_bar_arm_height = 300;
 handle_bar_arm_angle = 30;
 
 //---------------------------------------------------------------------------------------
-//angle_direction_control = 30;
+angle_direction_control = 30;
 
 offset_wheel = 16.75;
 r = sqrt(155*155 + offset_wheel * offset_wheel);
-angle_initial = atan(offset_wheel/ 105);
+//angle_initial = atan(offset_wheel/ 105);
 
 //echo(angle_initial = angle_initial);
 
-angle_wheel_1 = 0;//angle_initial + handle_bar_arm_angle;
-angle_wheel_2 = 0;//handle_bar_arm_angle+angle_initial;
+angle_wheel_1 = angle_direction_control;//angle_initial + handle_bar_arm_angle;
+angle_wheel_2 = angle_direction_control;//handle_bar_arm_angle+angle_initial;
 
 //---------------------------------------------------------------------------------------
 crank_arm_length = 170;
@@ -113,7 +118,7 @@ module wheel_front_support()
     //screw
     translate([0, 0, M14_nut_thick])
         mirror([0, 0, 1])
-            screw_M14_hexa(280);
+            screw_M14_hexa(80);
         
         // direction
     translate([-100 - 3, -M14_nut_key_size / 2 - 10 - 4 - 28, -0]){
@@ -195,32 +200,24 @@ module frame_front_wheel_connector(extension_length)
     aa = 35;
     rr = 24.1;
     
-    echo("bearing center y=",dist_bearing_to_wheel);
+    echo("bearing center y=",bearing_wheel_support_to_edge_distance);
     difference(){
-        translate([0, - dist_bearing_to_wheel, 0])
+        translate([0, - bearing_wheel_support_to_edge_distance, 0])
             rotate([-90, 0, 0])
-                pipe_40_40_2(2 * dist_bearing_to_wheel + extension_length);
+                pipe_40_40_2(2 * bearing_wheel_support_to_edge_distance + extension_length);
                 
-            // holes for wheels support
-        translate([0, -wheels_front_distance / 2, -21])
-            cylinder(h = 42, r = 12);
-        translate([0, wheels_front_distance / 2, -21])
-            cylinder(h = 42, r = 12);
+// center hole for wheels support
+        translate([0, 0, -21])
+            cylinder(h = 42, r = 12.5);
 
+// screws for holding bearings
         echo("screw pos x (from edge)= ",20-sin(aa) * rr);
         echo("screw pos y (from center)= ",cos(aa) * rr);
         
-        echo("screw pos y1 (from edge) = ",dist_bearing_to_wheel+cos(aa) * rr);
-        echo("screw pos y2 (from edge) = ",dist_bearing_to_wheel-cos(aa) * rr);
-        // bearings
-        translate([0, -wheels_front_distance / 2, 0]){
-            translate([0, 0, 15])
-                bearing_conic_30202();
-        
-            translate([0, 0, -15 - 11])
-                bearing_conic_30202();
+        echo("screw pos y1 (from edge) = ",bearing_wheel_support_to_edge_distance+cos(aa) * rr);
+        echo("screw pos y2 (from edge) = ",bearing_wheel_support_to_edge_distance-cos(aa) * rr);
+        translate([0, -wheels_front_distance_between_supports / 2, 0]){
             
-    // screws for holding bearings
 
                 translate([0, 0, 20 + 7])
                 mirror([0, 0, 1]){
@@ -248,20 +245,21 @@ module frame_front_wheel_connector(extension_length)
                 rotate([0, 0, 25])screw_M8_hexa(60);
         }
 
+// install bearings too        
     translate([0, 0, 20])
         bearing_conic_30202();
      translate([0, 0, -20 - 11])
             bearing_conic_30202();
-
 }
 //---------------------------------------------------------------------------------------
 module frame_front()
 {
-    echo ("horizontal bar length = ", wheels_front_distance - 2 * dist_bearing_to_wheel);
+    echo ("horizontal bar length = ", wheels_front_distance_between_supports - 2 * bearing_wheel_support_to_edge_distance);
     difference(){
-        translate([0, -wheels_front_distance / 2 + dist_bearing_to_wheel, 0])
+        translate([0, -(wheels_front_distance_between_supports / 2 - bearing_wheel_support_to_edge_distance), 0])
         rotate([-90, 0, 0])
-            cylinder(h = wheels_front_distance - 2 * dist_bearing_to_wheel, r = 17);            
+            cylinder(h = wheels_front_distance_between_supports - 2 * bearing_wheel_support_to_edge_distance, r = 17)
+            ;            
             
             
 // holes for connecting solar wing
@@ -291,13 +289,13 @@ echo(frame_front_distance_between_bottom_frames = frame_front_distance_between_b
         rotate([0, 90, 0])
             screw_M8_hexa(60);
 
-    // frame wheel-connectors
-    translate([0, -wheels_front_distance / 2 + dist_bearing_to_wheel +150, 0])
-            translate([0, -dist_bearing_to_wheel -150, 0])
-                frame_front_wheel_connector(150);
+    // frame-wheel connectors
+    translate([0, -wheels_front_distance_between_supports / 2 + bearing_wheel_support_to_edge_distance + 50, 0])
+            translate([0, -bearing_wheel_support_to_edge_distance -50, 0])
+                frame_front_wheel_connector(50);
                 
-    translate([0, wheels_front_distance / 2 - dist_bearing_to_wheel -50, 0])
-            translate([0, dist_bearing_to_wheel +50, 0])
+    translate([0, wheels_front_distance_between_supports / 2 - bearing_wheel_support_to_edge_distance - 50, 0])
+            translate([0, bearing_wheel_support_to_edge_distance +50, 0])
                 mirror([0,1,0])
                     frame_front_wheel_connector(50);
     
@@ -340,12 +338,12 @@ module frame_front_with_direction_control()
 /*
 // direction control shaft left
     translate ([-cos(angle_wheel_1) * 105, sin(angle_wheel_1) * 105 + 16, +25])
-        direction_control_shaft(bar_length = wheels_front_distance - 47) ;
+        direction_control_shaft(bar_length = wheels_front_distance_between_supports - 47) ;
 */
 // direction control shaft left    
     
-    translate ([-cos(handle_bar_arm_angle) * r, sin(handle_bar_arm_angle) * r - (wheels_front_distance / 2 - offset_wheel), +25])
-        direction_control_shaft(bar_length = wheels_front_distance - 2 * offset_wheel) ;
+    translate ([-cos(handle_bar_arm_angle) * r, sin(handle_bar_arm_angle) * r - (wheels_front_distance_between_supports / 2 - offset_wheel), +25])
+        direction_control_shaft(bar_length = wheels_front_distance_between_supports - 2 * offset_wheel) ;
         
 // screws for connecting the bottom frame
     translate([-8,  -30, -26])
@@ -395,8 +393,9 @@ echo("hole for connecting wing to bottom side (from end-bottom)", [18, 11]);
         screw_M8_hexa(30);
     
 // vertical part
-echo(frame_rear_height = frame_rear_height);
-echo("frame_rear_vertical holes from top", 33);
+    echo(frame_rear_height = frame_rear_height);
+    echo("frame_rear_vertical holes from top", 33);
+    
     translate([-13, 0, 3]){
         translate([-3, 0, 3])
             difference(){
@@ -561,11 +560,11 @@ module chain_deviation()
 module frame_front_with_wheels()
 {
 //wheels, front
-    translate ([0, wheels_front_distance / 2, wheel_radius_front]) 
+    translate ([0, wheels_front_distance_between_supports / 2, wheel_radius_front]) 
         mirror([0, 1, 0])
             wheel_with_front_support(angle_wheel_1);
             
-    translate ([0, -wheels_front_distance / 2, wheel_radius_front]) 
+    translate ([0, -wheels_front_distance_between_supports / 2, wheel_radius_front]) 
         wheel_with_front_support(-angle_wheel_2) ;
 
 // frame between wheels, front
@@ -650,23 +649,41 @@ module trike_base()
       //      rotate([1, 0, 0])
                // color("black")cylinder (h = 320, r = 10)
                 ;
+       
+/*       
+// nose
+    hull(){
+        translate([-300, 0, 200])
+            sphere(r = 1);
+        
+        translate([-35, 490, 200])
+        sphere(r = 1);
+        
+        translate([-35, -490, 200])
+        sphere(r = 1);
+        
+        translate([-30, 0, 800])
+        sphere(r = 1);
+    }                
+    */
 }
 //---------------------------------------------------------------------------------------
 module solar_wings(_show_panels, _show_frame)
 {
 // front 
-echo("solar_wing_metal_support front: length = 668+45+61 = 774, angle = 50");
+    echo("solar_wing_metal_support front: length = 668+45+61 = 774, angle = 50");
+
     translate([wing_front_offset_X, -0, wing_front_offset_Y]) 
         rotate([0, -wing_front_ramp_angle, 0]) 
-            solar_wing(wing_front_fly_angle, solar_panel_front_size, angle2 = wing_front_crack_angle, space = 20, open_door_angle = door_angle, offset_top = 45, offset_bottom = 61, $show_panels = _show_panels, $show_frame = _show_frame);
+            solar_wing(wing_front_fly_angle, solar_panel_front_size, angle_crack = wing_front_crack_angle, space_between_panels = 20, open_door_angle = door_angle, offset_top = 45, offset_bottom = 61, $show_panels = _show_panels, $show_frame = _show_frame);
             
-           
 // rear    
-echo("solar_wing_metal_support rear: length = 668+40+58 = 766, angle = 46");
+    echo("solar_wing_metal_support rear: length = 668+40+58 = 766, angle = 46");
+
     translate([solar_panel_front_size[0] + solar_panel_rear_size[0] + wing_rear_offset_X, 0, wing_rear_offset_Y])
         rotate([0, wing_rear_ramp_angle, 0]) 
         mirror([1, 0, 0])
-            solar_wing(wing_rear_fly_angle, solar_panel_rear_size, angle2 = wing_rear_crack_angle, space = 20, offset_top = 40, offset_bottom = 58, open_door_angle = 0,
+            solar_wing(wing_rear_fly_angle, solar_panel_rear_size, angle_crack = wing_rear_crack_angle, space_between_panels = 20, offset_top = 40, offset_bottom = 58, open_door_angle = 0,
             $show_panels = _show_panels, $show_frame = _show_frame);
 }
 //---------------------------------------------------------------------------------------
@@ -695,7 +712,7 @@ module trike_base_with_human()
 // human 
     translate([human_pos_X, 0, human_pos_Y])
         rotate([0, 90, 0])
-            human(human_hip_angle, shoulder_angle = 90, elbow_angle = 90, head_angle = 20);
+            human(human_hip_angle, shoulder_angle = 0, elbow_angle = 45, head_angle = 20);
 }
 //---------------------------------------------------------------------------------------
 module trike_with_solar_panels_and_human()
@@ -715,6 +732,7 @@ trike_with_solar_panels_and_human();
 //trike_with_solar_panels_support();
 
 //trike_base();
+//trike_base_with_human();
 
 //solar_panel_with_support(solar_panel_front_size);
 //solar_panel_with_support_and_balamale(solar_panel_front_size);

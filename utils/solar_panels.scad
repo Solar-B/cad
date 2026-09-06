@@ -6,7 +6,7 @@
 // https://mihaioltean.github.io
 // License: MIT
 
-// last update 2026.2.22
+// last update 2026.9.6.0
 //---------------------------------------------------------------------------------------
 use <metal_components.scad>
 //---------------------------------------------------------------------------------------
@@ -27,37 +27,38 @@ module solar_panel(panel_size)
 //---------------------------------------------------------------------------------------
 module solar_panel_with_enhanced_frame(panel_size, _door_angle = 0, $show_panels = true)
 {
+
 }
 //---------------------------------------------------------------------------------------
-module solar_panel_with_support(panel_size, _door_angle = 0, 
+module solar_panel_with_support(
+    panel_size, 
+    _door_angle = 0, 
     bar_offset_left_bottom = 0, 
     bar_offset_left_top = 0, 
     bar_offset_right_bottom = 0, 
     bar_offset_right_top = 0, 
-    $show_panels = true,
-    $show_frame = true)
+    $show_panels = true)
 {
-    if ($show_frame)
-        translate([0, 0, 12.5])
-            rotate([0, -_door_angle, 0])
-            if ($show_panels == true)
-                solar_panel(panel_size)
-            ;        
+	translate([0, 0, 12.5])
+		if ($show_panels == true)
+			solar_panel(panel_size)
+		;        
     
-       // door frame, moves with door
-       // on length
-    rotate([0, -_door_angle, 0])
+// frame, 
+// on length
+
     translate([25, 0, 0])
         rotate([0, 90, 0])
         color("Silver") 
             cylinder(h = panel_size[0] - 50, r = 12.5)
         ;
-
+// other length
     translate([25, panel_size[1] - 25, 0])
         rotate([0, 90, 0])
         color("Silver") 
             cylinder(h = panel_size[0] - 50, r = 12.5);
     
+// width    
 // left side
     translate ([12.5, -bar_offset_left_bottom, 0]) 
     rotate([-90, 0, 0])
@@ -86,28 +87,47 @@ module solar_panel_with_support(panel_size, _door_angle = 0,
             }
 }
 //---------------------------------------------------------------------------------------
+module solar_panel_with_support_as_door(
+    panel_size, 
+    _door_angle = 0, 
+    bar_offset_left_bottom = 0, 
+    bar_offset_left_top = 0, 
+    bar_offset_right_bottom = 0, 
+    bar_offset_right_top = 0, 
+    $show_panels = true)
+{
+    rotate([0, -_door_angle, 0])
+        solar_panel_with_support(
+            panel_size, 
+            bar_offset_left_bottom = 0, 
+            bar_offset_left_top = 0, 
+            bar_offset_right_bottom = 0, 
+            bar_offset_right_top = 0, 
+            $show_panels);
+}
+//---------------------------------------------------------------------------------------
 module solar_wing(angle, panel_size, angle2, space, open_door_angle, offset_top, offset_bottom, $show_panels = true, $show_frame = true)
 {
     rotate([0, 0, angle2])
         rotate([-angle, 0, 0])
         translate([0, space, 0]) 
-            solar_panel_with_support(panel_size, open_door_angle, 
+            solar_panel_with_support(panel_size, 
     bar_offset_left_bottom = offset_top, //52
     bar_offset_left_top = offset_bottom, //100, 
     bar_offset_right_bottom = 0, 
     bar_offset_right_top = 0, 
-            $show_panels, $show_frame);
+            $show_panels);
         
     rotate([0, 0, -angle2]) 
         rotate([angle, 0, 0]) 
             translate([0, - space, 0]) 
             mirror([0, 1, 0])
-                solar_panel_with_support(panel_size, open_door_angle, 
+                solar_panel_with_support_as_door(panel_size, open_door_angle, 
     bar_offset_left_bottom = offset_top, //52, 
     bar_offset_left_top = offset_bottom, //100, 
     bar_offset_right_bottom = 0, 
     bar_offset_right_top = 0, 
-                $show_panels, $show_frame);
+                $show_panels);
                 
 }
 //---------------------------------------------------------------------------------------
@@ -117,12 +137,14 @@ module solar_wing(angle, panel_size, angle2, space, open_door_angle, offset_top,
 //solar_panel_with_enhanced_frame([1485, 668, 30]);
 
 /*
-solar_panel_with_support([1485, 668, 30], _door_angle = 20, 
+solar_panel_with_support(panel_size = [1485, 668, 30], 
+    _door_angle = 20, 
     bar_offset_left_bottom = 45, 
     bar_offset_left_top = 61, 
     bar_offset_right_bottom = 30, 
     bar_offset_right_top = 40);
 */
+
   
 solar_wing(angle = 50, 
             panel_size=[1485, 668, 3], angle2 = 8, space = 20, open_door_angle = 0, offset_top = 45,  offset_bottom = 61 , $show_panels = true, $show_frame = true);

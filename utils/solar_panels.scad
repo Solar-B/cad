@@ -1,12 +1,12 @@
 // Solar Bear
-// A solar-hybrid trike
+// A solar trike
 // https://github.com/solar-b
 
 // Maker: Mihai Oltean
 // https://mihaioltean.github.io
 // License: MIT
 
-// last update 2026.9.6.1
+// last update 2026.9.6.2
 //---------------------------------------------------------------------------------------
 module solar_panel(panel_size)
 {
@@ -97,18 +97,18 @@ module solar_panel_with_support_as_door(
 }
 //---------------------------------------------------------------------------------------
 module solar_wing(
-    angle, 
+    angle_fly, 
     panel_size, 
-    angle2, 
-    space, 
+    angle_crack, 
+    space_between_panels, 
     open_door_angle, 
     offset_top, 
     offset_bottom, 
     show_panels = true)
 {
-    rotate([0, 0, angle2])
-        rotate([-angle, 0, 0])
-            translate([0, space, 0]) 
+    rotate([0, 0, angle_crack])
+        rotate([-angle_fly, 0, 0])
+            translate([0, space_between_panels, 0]) 
         
                 solar_panel_with_support(
                     panel_size, 
@@ -118,9 +118,9 @@ module solar_wing(
                     bar_offset_right_top = 0, 
                     show_panels);
         
-    rotate([0, 0, -angle2])
-        rotate([angle, 0, 0])
-            translate([0, - space, 0])
+    rotate([0, 0, -angle_crack])
+        rotate([angle_fly, 0, 0])
+            translate([0, - space_between_panels, 0])
             mirror([0, 1, 0])
                 solar_panel_with_support_as_door(
                     panel_size,
@@ -132,10 +132,7 @@ module solar_wing(
                     show_panels);
 }
 //---------------------------------------------------------------------------------------
-
 //solar_panel(solar_panel_front_size);
-
-//solar_panel_with_enhanced_frame([1485, 668, 30]);
 
 /*
 solar_panel_with_support(panel_size = [1485, 668, 30], 
@@ -145,13 +142,12 @@ solar_panel_with_support(panel_size = [1485, 668, 30],
     bar_offset_right_bottom = 30, 
     bar_offset_right_top = 40);
 */
-
   
-solar_wing(angle = 50, 
-            panel_size=[1485, 668, 3], angle2 = 8, space = 20, open_door_angle = 0, offset_top = 45,  offset_bottom = 61 , $show_panels = true, $show_frame = true);
-
-   
-//solar_wing(50, [1485, 668, 30], angle2 = 8, space = 20, offset_bottom = 52, offset_top = 100, open_door_angle = 0);
-
-//corner_25_25_3_with_holes(1000, 20, 50, 50);
-//corner_30_30_3(1000);
+solar_wing(angle_fly = 50, 
+            panel_size=[1485, 668, 3], 
+            angle_crack = 8, 
+            space_between_panels = 20, 
+            open_door_angle = 0, 
+            offset_top = 45,  
+            offset_bottom = 61, 
+            show_panels = true);

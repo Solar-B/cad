@@ -9,7 +9,7 @@
 // License: MIT
 
 //---------------------------------------------------------------------------------------
-// last update: 2026.09.06
+// last update: 2026.09.12
 //---------------------------------------------------------------------------------------
 include <screws_nuts_washers_params.scad>
 //---------------------------------------------------------------------------------------
@@ -229,14 +229,13 @@ module frame_front(wheels_front_distance_between_supports,
                 rotate([0, 90, 0])
                     cylinder (h = 23, r = 4, center = true);
         }
-        // base       
+        // base of the vertical, welded, used to connect to horizontal
         translate([10, 40, 0])
             rotate([0, 0, 180])
                 corner_30_23_3(80);
     }
 }
 //---------------------------------------------------------------------------------------
-
 module pipe_wing_panel_suport(_length, top_cut_angle, top_dist_to_holes)
 {
     difference(){
@@ -283,14 +282,14 @@ module solar_wings_support()
 //  solar panels, second support; internal
     echo("internal pipe_panel_suport_center (length = 693, base_cut angle:  37, top_cut_angle : 37, top_dist_to_holes : 30)");
     
-    translate([0, 12.1, 22.1])
+    translate([-7.5, 12.1, 22.1])
         rotate([-15, 0, 0])
             pipe_wing_panel_suport(693, top_cut_angle = 37, top_dist_to_holes = 30)
                 ;
 //  solar panels, second support; external
     
     echo("external pipe_panel_suport_center(lenght = 598, base_cut_angle = 23, top_cut_angle = 17, top_dist_to_holes = 15)");
-        translate([0, -1.2, 12])
+        translate([7.5, -1.2, 12])
             mirror([0, 1 , 0])
             rotate([67.2, 0, 0])
             //rotate([0, 0, 90])
@@ -328,8 +327,8 @@ module chain_deviation()
 //direction_control_shaft(bar_length = 1000);
 //direction_control_corner();
 
-frame_front_wheel_connector(extension_length = 50, dist_to_bearing = 27);
+//frame_front_wheel_connector(extension_length = 50, dist_to_bearing = 27);
 
-//solar_wings_support();
+solar_wings_support();
 
 //handle_bar(length = 800, arm_angle = 15, arm_length = 300);

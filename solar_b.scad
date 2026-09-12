@@ -14,7 +14,7 @@
 //---------------------------------------------------------------------------------------
 include <utils/screws_nuts_washers_params.scad>
 //---------------------------------------------------------------------------------------
-use <utils/metal_components.scad>
+use <utils/metal_profiles.scad>
 use <utils/bike_parts.scad>
 use <utils/solar_panels.scad>
 use <utils/human.scad>

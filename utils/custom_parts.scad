@@ -24,8 +24,8 @@ module wheel_front_support()
     difference(){
 // corner
         union(){
-            translate([-100, -M14_nut_key_size / 2 - 10 - 4 + 2, -0])
-                corner_angled_40_40_4(220, 90);
+            translate([-120, -M14_nut_key_size / 2 - 10 - 4 + 2, -0])
+                corner_angled_40_40_4(240, 90);
 // wheel 10mm thick support
             translate([-25, -M14_nut_key_size / 2 - 10 + 2, 4])
                 cube([50, 10, 40]);
@@ -41,7 +41,7 @@ module wheel_front_support()
             screw_M14_hexa(80);
         
         // direction
-    translate([-100 - 3, -M14_nut_key_size / 2 - 10 - 4 - 28, -0]){
+    translate([-120 - 3, -M14_nut_key_size / 2 - 10 - 4 - 28, -0]){
         difference(){
             corner_30_30_3(70);
             translate([15, 15, -1]) 
@@ -323,12 +323,12 @@ module chain_deviation()
 //pipe_panel_suport_center(200, 20, 4);
 //pipe_panel_suport_center(705, top_cut_angle = 35, top_dist_to_holes = 27);
 
-//wheel_front_support();
+wheel_front_support();
 //direction_control_shaft(bar_length = 1000);
 //direction_control_corner();
 
 //frame_front_wheel_connector(extension_length = 50, dist_to_bearing = 27);
 
-solar_wings_support();
+//solar_wings_support();
 
 //handle_bar(length = 800, arm_angle = 15, arm_length = 300);

@@ -10,7 +10,7 @@
 
 //---------------------------------------------------------------------------------------
 // Version: 28.2
-// last update: 2026.09.12.0
+// last update: 2026.09.12.1
 //---------------------------------------------------------------------------------------
 include <utils/screws_nuts_washers_params.scad>
 //---------------------------------------------------------------------------------------
@@ -76,10 +76,9 @@ frame_bottom_rotation_angle = -1.53;
 handle_bar_pos = 940;
 handle_bar_length = 800;
 handle_bar_arm_height = 300;
-handle_bar_arm_angle = 30;
 
 //---------------------------------------------------------------------------------------
-angle_direction_control = 30;
+angle_direction_control = 0;
 
 offset_wheel = 16.75;
 r = sqrt(155*155 + offset_wheel * offset_wheel);
@@ -89,6 +88,7 @@ r = sqrt(155*155 + offset_wheel * offset_wheel);
 
 angle_wheel_1 = angle_direction_control;//angle_initial + handle_bar_arm_angle;
 angle_wheel_2 = angle_direction_control;//handle_bar_arm_angle+angle_initial;
+handle_bar_arm_angle = angle_direction_control;
 
 //---------------------------------------------------------------------------------------
 crank_arm_length = 170;
@@ -375,6 +375,8 @@ module solar_bear_base()
         sphere(r = 1);
     }                
     */
+    
+    
 }
 //---------------------------------------------------------------------------------------
 module solar_wings(_show_panels, _show_frame)

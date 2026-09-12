@@ -10,7 +10,7 @@
 
 //---------------------------------------------------------------------------------------
 // Version: 28.2
-// last update: 2026.09.06
+// last update: 2026.09.12.0
 //---------------------------------------------------------------------------------------
 include <utils/screws_nuts_washers_params.scad>
 //---------------------------------------------------------------------------------------
@@ -282,7 +282,7 @@ module frame_front_with_wheels()
             frame_front_with_direction_control()   ;
 }
 //---------------------------------------------------------------------------------------
-module trike_base()
+module solar_bear_base()
 {
     frame_front_with_wheels();
        
@@ -396,52 +396,52 @@ module solar_wings(_show_panels, _show_frame)
             $show_panels = _show_panels, $show_frame = _show_frame);
 }
 //---------------------------------------------------------------------------------------
-module trike_with_solar_panels()
+module solar_bear_with_solar_panels()
 {
-    trike_base();
+    solar_bear_base();
     solar_wings(true, true);
 }
 //---------------------------------------------------------------------------------------
-module trike_with_solar_panels_frame()
+module solar_bear_with_solar_panels_frame()
 {
-    trike_base();
+    solar_bear_base();
     
     solar_wings(false, true);
 }
 //---------------------------------------------------------------------------------------
-module trike_with_solar_panels_support()
+module solar_bear_with_solar_panels_support()
 {
-    trike_base();
+    solar_bear_base();
     solar_wings(false, false);
 }
 //---------------------------------------------------------------------------------------
-module trike_base_with_human()
+module solar_bear_base_with_human()
 {
-    trike_base();
+    solar_bear_base();
 // human 
     translate([human_pos_X, 0, human_pos_Y])
         rotate([0, 90, 0])
             human(human_hip_angle, shoulder_angle = 0, elbow_angle = 45, head_angle = 20);
 }
 //---------------------------------------------------------------------------------------
-module trike_with_solar_panels_and_human()
+module solar_bear_with_solar_panels_and_human()
 {
-    trike_with_solar_panels();
+    solar_bear_with_solar_panels();
 // human 
     translate([human_pos_X, 0, human_pos_Y])
     rotate([0, 90, 0])
         human(human_hip_angle, shoulder_angle = 0, elbow_angle = 45, head_angle = 20);
 }
 //---------------------------------------------------------------------------------------
-trike_with_solar_panels_and_human();
+solar_bear_with_solar_panels_and_human();
 
-//trike_with_solar_panels();
-//trike_with_solar_panels_frame();
+//solar_bear_with_solar_panels();
+//solar_bear_with_solar_panels_frame();
 
-//trike_with_solar_panels_support();
+//solar_bear_with_solar_panels_support();
 
-//trike_base();
-//trike_base_with_human();
+//solar_bear_base();
+//solar_bear_base_with_human();
 
 //solar_panel_with_support(solar_panel_front_size);
 //solar_panel_with_support_and_balamale(solar_panel_front_size);
@@ -451,22 +451,25 @@ trike_with_solar_panels_and_human();
 
 //wheel_with_front_support(20);
 
-//frame_front();
+/*
+frame_front(wheels_front_distance_between_supports, 
+    bearing_wheel_support_to_edge_distance,
+    frame_front_height,
+    castor_angle, 
+    frame_front_distance_to_solar_frames_bottom);
+*/
+    
 //frame_front_with_direction_control();
 //frame_front_with_wheels();
 
 //frame_rear();
 //frame_bottom(true);
 
-//handle_bar();
+//handle_bar(length = handle_bar_length, arm_angle = handle_bar_arm_angle, arm_length = handle_bar_arm_height);
 
 //direction_control_shaft(200);
 
 //direction_control_corner();
-
-//solar_panel_hinge_bar(length = 100, top = 10, bottom = 20, angle_top = 45, angle_bottom = 45);
-
-//crank_with_connector(200);
 
 //solar_wings_support();
 

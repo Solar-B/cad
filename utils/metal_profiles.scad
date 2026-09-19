@@ -218,8 +218,19 @@ module T_40_5(length)
     }
 }
 //---------------------------------------------------------------------------------------
+module tube(h, r_ext, r_int)
+{
+    difference(){
+        cylinder(h = h, r = r_ext);
+        translate([0, 0, -1])
+            cylinder(h = h + 2, r = r_int);
+    }
+}
+//---------------------------------------------------------------------------------------
+
 
 //corner_50_50_5(100);
 //corner_23_30_3(100);
 
-corner_angled_40_40_4(length = 100, angle = 100);
+//corner_angled_40_40_4(length = 100, angle = 100);
+tube(h = 100, r_ext = 15, r_int = 12.5);

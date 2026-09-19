@@ -9,7 +9,7 @@
 // License: MIT
 
 //---------------------------------------------------------------------------------------
-// last update: 2026.09.12
+// last update: 2026.09.19
 //---------------------------------------------------------------------------------------
 include <screws_nuts_washers_params.scad>
 //---------------------------------------------------------------------------------------
@@ -245,22 +245,17 @@ module pipe_wing_panel_suport(_length, top_cut_angle, top_dist_to_holes)
 // holes for screws
 
         // cut top angle
-        translate([-26, -15, _length])
-            rotate([-top_cut_angle, 0, 0])
-                cube([52, 59, 30]);
+        translate([-0, 15, _length ])
+            rotate([90-top_cut_angle, 0, 0])
+                cylinder(h = 50, r = 15, center = true);
     }
     
-    // screws
-    translate([0, 0, _length - top_dist_to_holes * cos(top_cut_angle) - tan(top_cut_angle) * (10 - 8)])
-    translate([-40, -0, 0])
-        rotate([0, 90, 0])
-            cylinder(h=80, r = 4);
-/*
-    translate([0, 0, _length - top_dist_to_holes * cos(top_cut_angle) - tan(top_cut_angle) * (15 + 8)])
-    translate([-30, 8, 0])
-        rotate([0, 90, 0])
-            cylinder(h=60, r = 4);
-*/
+    // ring
+    translate([0, 0, _length - 4 ])
+    translate([0, 20, 0])
+        rotate([90-top_cut_angle, 0, 0])
+            tube(h = 30, r_ext = 15, r_int = 12.5)
+            ;
 }
 //---------------------------------------------------------------------------------------
 module solar_wings_support()
@@ -280,20 +275,20 @@ module solar_wings_support()
     } 
             
 //  solar panels, second support; internal
-    echo("internal pipe_panel_suport_center (length = 693, base_cut angle:  37, top_cut_angle : 37, top_dist_to_holes : 30)");
+    echo("internal pipe_panel_suport_center (length = 660, base_cut angle:  37, top_cut_angle : 37, top_dist_to_holes : 30)");
     
     translate([-7.5, 12.1, 22.1])
         rotate([-15, 0, 0])
-            pipe_wing_panel_suport(693, top_cut_angle = 37, top_dist_to_holes = 30)
+            pipe_wing_panel_suport(660, top_cut_angle = 37, top_dist_to_holes = 30)
                 ;
 //  solar panels, second support; external
     
-    echo("external pipe_panel_suport_center(lenght = 598, base_cut_angle = 23, top_cut_angle = 17, top_dist_to_holes = 15)");
+    echo("external pipe_panel_suport_center(lenght = 580, base_cut_angle = 23, top_cut_angle = 17, top_dist_to_holes = 15)");
         translate([7.5, -1.2, 12])
             mirror([0, 1 , 0])
             rotate([67.2, 0, 0])
             //rotate([0, 0, 90])
-                pipe_wing_panel_suport(598, top_cut_angle=17, top_dist_to_holes = 15)
+                pipe_wing_panel_suport(580, top_cut_angle=17, top_dist_to_holes = 15)
                 ;
 
 }
@@ -304,7 +299,17 @@ module handle_bar(length, arm_angle, arm_length)
     translate([0, -length / 2, 0])
         rotate([-90, 0, 0])
             pipe_30_20_2(length);
+            /*
+    //translate([0, -length / 2, 0])
+      rotate([0, 0, 90])
+        rotate([-90, 0, 0])
+            pipe_30_20_2(300);
             
+    translate([-300, 0, 0])
+    rotate([0, 0, 135 + 20])
+        rotate([-90, 0, 0])
+            pipe_20_20_2(700);
+            */
 // hand bars            
     translate([0, -length / 2 + 13, 0])
         rotate([0, -arm_angle, 0])
@@ -323,12 +328,13 @@ module chain_deviation()
 //pipe_panel_suport_center(200, 20, 4);
 //pipe_panel_suport_center(705, top_cut_angle = 35, top_dist_to_holes = 27);
 
-wheel_front_support();
+//wheel_front_support();
 //direction_control_shaft(bar_length = 1000);
 //direction_control_corner();
 
 //frame_front_wheel_connector(extension_length = 50, dist_to_bearing = 27);
 
-//solar_wings_support();
+//pipe_wing_panel_suport(693, top_cut_angle = 37, top_dist_to_holes = 30);
+solar_wings_support();
 
 //handle_bar(length = 800, arm_angle = 15, arm_length = 300);

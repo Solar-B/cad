@@ -156,11 +156,13 @@ module frame_front_wheel_connector(extension_length, dist_to_bearing = 27)
             bearing_conic_30202();
 }
 //---------------------------------------------------------------------------------------
-module frame_front(wheels_front_distance_between_supports, 
+module frame_front(
+    wheels_front_distance_between_supports, 
     bearing_wheel_support_to_edge_distance,
     frame_front_height,
     castor_angle, 
-    frame_front_distance_to_solar_frames_bottom)
+    frame_front_distance_to_solar_frames_bottom
+    )
 {
     echo ("horizontal bar length = ", wheels_front_distance_between_supports - 2 * bearing_wheel_support_to_edge_distance);
     difference(){
@@ -236,7 +238,7 @@ module frame_front(wheels_front_distance_between_supports,
     }
 }
 //---------------------------------------------------------------------------------------
-module pipe_wing_panel_suport(_length, top_cut_angle, top_dist_to_holes)
+module pipe_wing_panel_suport(_length, top_cut_angle)
 {
     difference(){
         rotate([0, 0, 90])
@@ -279,7 +281,7 @@ module solar_wings_support()
     
     translate([-7.5, 12.1, 22.1])
         rotate([-15, 0, 0])
-            pipe_wing_panel_suport(660, top_cut_angle = 37, top_dist_to_holes = 30)
+            pipe_wing_panel_suport(660, top_cut_angle = 37)
                 ;
 //  solar panels, second support; external
     
@@ -288,7 +290,7 @@ module solar_wings_support()
             mirror([0, 1 , 0])
             rotate([67.2, 0, 0])
             //rotate([0, 0, 90])
-                pipe_wing_panel_suport(580, top_cut_angle=17, top_dist_to_holes = 15)
+                pipe_wing_panel_suport(580, top_cut_angle=17)
                 ;
 
 }

@@ -10,7 +10,7 @@
 
 //---------------------------------------------------------------------------------------
 // Version: 28.3
-// last update: 2026.09.19.0
+// last update: 2026.09.19.1
 //---------------------------------------------------------------------------------------
 include <utils/screws_nuts_washers_params.scad>
 //---------------------------------------------------------------------------------------
@@ -316,13 +316,13 @@ module solar_bear_base()
 //wings support            
       translate([wing_support_dist_to, 80, wheel_radius_front - 20])
       rotate([0, 0, -frame_bottom_rotation_angle])
-        solar_wings_support()
-        ;
+        solar_wings_support(length_int = 660, length_ext = 580, top_cut_angle_int = 37, top_cut_angle_ext = 17);
+        
         
         translate([wing_support_dist_to, -80, wheel_radius_front - 20])
         rotate([0, 0, frame_bottom_rotation_angle])
         mirror([0, 1, 0])
-        solar_wings_support()
+        solar_wings_support(length_int = 660, length_ext = 580, top_cut_angle_int = 37, top_cut_angle_ext = 17);
         ;
         
 // horizontal bar to connect solar wings supports

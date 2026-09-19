@@ -9,8 +9,8 @@
 // License: MIT
 
 //---------------------------------------------------------------------------------------
-// Version: 28.2
-// last update: 2026.09.12.1
+// Version: 28.3
+// last update: 2026.09.19.0
 //---------------------------------------------------------------------------------------
 include <utils/screws_nuts_washers_params.scad>
 //---------------------------------------------------------------------------------------
@@ -98,7 +98,7 @@ crank_y = wheel_radius_front + 45;
 door_angle = 0;
 fork_stick_radius = 14.26;// 1 1/8 inch
 //---------------------------------------------------------------------------------------
-castor_angle = 10;
+castor_angle = 0;
 //---------------------------------------------------------------------------------------
 module wheel_with_front_support(_angle_Z)
 {
@@ -260,6 +260,7 @@ module frame_bottom(_thin = false)
 module motor_with_crank_and_chain(connector_length)
 {
     motor_with_crank(connector_length);
+    // chain, raw drawing
     translate([0, 50, -70])
         cube([1500, 10, 10]);
     translate([0, -60, -70])
@@ -335,9 +336,10 @@ module solar_bear_base()
 
 //seat
     translate([human_pos_X + 700, -225, wheel_radius_front + 25])
-            trike_seat(human_hip_angle);   
+            //trike_seat(human_hip_angle)
+            ;
 
-// handle bar support
+// handle bar support on frame
     translate([handle_bar_pos, 45, wheel_radius_front - 5])
         rotate([90, 0, 0])
         pipe_30_30_2(100);
@@ -350,7 +352,7 @@ module solar_bear_base()
 // direction shaft        
     translate([0, -65, wheel_radius_front - 105])
         rotate([0, 0, -90])
-            direction_control_shaft(bar_length = 865);
+            direction_control_shaft(bar_length = handle_bar_pos);
 
 // damper  
     //translate([first_bottom_bar_at, -330, wheel_radius_front + 25])
@@ -374,19 +376,26 @@ module solar_bear_base()
         translate([-30, 0, 800])
         sphere(r = 1);
     }                
-    */
-    
-    
+*/
+
+/*    
+    // ackerman direction trace; //for debug only
+    translate([0, wheels_front_distance_between_supports / 2, 265])
+    rotate([0, 0, -21])
+    rotate([0, 90, 0])
+    translate([0, 0, -113])
+    cylinder(h = 2000, r = 4);
+*/
 }
 //---------------------------------------------------------------------------------------
-module solar_wings(_show_panels, _show_frame)
+module solar_wings(_show_panels)
 {
 // front 
     echo("solar_wing_metal_support front: length = 668+45+61 = 774, angle = 50");
 
     translate([wing_front_offset_X, -0, wing_front_offset_Y]) 
         rotate([0, -wing_front_ramp_angle, 0]) 
-            solar_wing(wing_front_fly_angle, solar_panel_front_size, angle_crack = wing_front_crack_angle, space_between_panels = 20, open_door_angle = door_angle, offset_top = 45, offset_bottom = 61, $show_panels = _show_panels, $show_frame = _show_frame);
+            solar_wing(wing_front_fly_angle, solar_panel_front_size, angle_crack = wing_front_crack_angle, space_between_panels = 20, open_door_angle = door_angle, offset_top = 45, offset_bottom = 61, show_panels = _show_panels);
             
 // rear    
     echo("solar_wing_metal_support rear: length = 668+40+58 = 766, angle = 46");
@@ -395,26 +404,20 @@ module solar_wings(_show_panels, _show_frame)
         rotate([0, wing_rear_ramp_angle, 0]) 
         mirror([1, 0, 0])
             solar_wing(wing_rear_fly_angle, solar_panel_rear_size, angle_crack = wing_rear_crack_angle, space_between_panels = 20, offset_top = 40, offset_bottom = 58, open_door_angle = 0,
-            $show_panels = _show_panels, $show_frame = _show_frame);
+            show_panels = _show_panels);
 }
 //---------------------------------------------------------------------------------------
 module solar_bear_with_solar_panels()
 {
     solar_bear_base();
-    solar_wings(true, true);
+    solar_wings(true);
 }
 //---------------------------------------------------------------------------------------
 module solar_bear_with_solar_panels_frame()
 {
     solar_bear_base();
     
-    solar_wings(false, true);
-}
-//---------------------------------------------------------------------------------------
-module solar_bear_with_solar_panels_support()
-{
-    solar_bear_base();
-    solar_wings(false, false);
+    solar_wings(false);
 }
 //---------------------------------------------------------------------------------------
 module solar_bear_base_with_human()
@@ -423,7 +426,7 @@ module solar_bear_base_with_human()
 // human 
     translate([human_pos_X, 0, human_pos_Y])
         rotate([0, 90, 0])
-            human(human_hip_angle, shoulder_angle = 0, elbow_angle = 45, head_angle = 20);
+            human(human_hip_angle, shoulder_angle = 0, elbow_angle = 45, head_angle = -20);
 }
 //---------------------------------------------------------------------------------------
 module solar_bear_with_solar_panels_and_human()
@@ -432,15 +435,13 @@ module solar_bear_with_solar_panels_and_human()
 // human 
     translate([human_pos_X, 0, human_pos_Y])
     rotate([0, 90, 0])
-        human(human_hip_angle, shoulder_angle = 0, elbow_angle = 45, head_angle = 20);
+        human(human_hip_angle, shoulder_angle = 0, elbow_angle = 45, head_angle = -20);
 }
 //---------------------------------------------------------------------------------------
-solar_bear_with_solar_panels_and_human();
+//solar_bear_with_solar_panels_and_human();
 
 //solar_bear_with_solar_panels();
-//solar_bear_with_solar_panels_frame();
-
-//solar_bear_with_solar_panels_support();
+solar_bear_with_solar_panels_frame();
 
 //solar_bear_base();
 //solar_bear_base_with_human();

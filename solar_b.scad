@@ -257,14 +257,14 @@ module frame_bottom(_thin = false)
     }
 }
 //---------------------------------------------------------------------------------------
-module motor_with_crank_and_chain(connector_length)
+module motor_with_crank_and_chain(arm_length = 170, arm_pos_angle = 0, disk_radius, chain_length)
 {
-    motor_with_crank(connector_length);
+    motor_with_cranks(arm_length = 170, arm_pos_angle = 0, disk_radius = 60);
     // chain, raw drawing
-    translate([0, 50, -70])
-        cube([1500, 10, 10]);
-    translate([0, -60, -70])
-        cube([1500, 10, 10]);
+    translate([60, 0, -70])
+        cube([10, chain_length, 10]);
+    translate([-60, 0, -70])
+        cube([10, chain_length, 10]);
 }
 //---------------------------------------------------------------------------------------
 module frame_front_with_wheels()
@@ -297,17 +297,19 @@ module solar_bear_base()
     translate([human_pos_X + crank_arm_length - 10, -20, crank_y])
     rotate ([0, 90, 0]) 
         rotate ([90, 0, 0]) 
-                motor_with_cranks(arm_length = 170, arm_pos_angle = 0, disk_radius = 60);
+                motor_with_crank_and_chain(arm_length = 170, arm_pos_angle = 0, disk_radius = 60, chain_length = 1400);
 
 // frame bottom left
     translate([-19, -30, wheel_radius_front - 5]) 
         rotate([0, 0, frame_bottom_rotation_angle])
-            frame_bottom(_thin = false);
+            frame_bottom(_thin = false)
+            ;
             
 // frame bottom right
     translate([-19, 30, wheel_radius_front - 5])
         rotate([0, 0, -frame_bottom_rotation_angle])
-                frame_bottom(_thin = true);
+                frame_bottom(_thin = true)
+                ;
             
 //rear frame
      translate([wheels_front_rear_distance + wheel_radius_rear + 31, -0, wheel_radius_front - 23])

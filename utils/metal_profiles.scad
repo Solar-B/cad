@@ -6,7 +6,7 @@
 // https://mihaioltean.github.io
 // License: MIT
 
-// last update 2026.07.10
+// last update 2026.09.21
 //---------------------------------------------------------------------------------------
 module pipe_50_20_2(length)
 {
@@ -227,10 +227,25 @@ module tube(h, r_ext, r_int)
     }
 }
 //---------------------------------------------------------------------------------------
+module pipe_connector_25(length)
+{// pipe connector, fi 25mm
+    difference(){
+        translate([-15, -15, 0])
+            cube([30, 30, length]);
+        translate([0, 0, length - 19])
+            cylinder(h = 20, r = 12.5);
+        translate([0, 16, 3 + 12.5])
+            rotate([90, 0, 0])
+                cylinder(h = 32, r = 12.5);
+    }
+}
+//---------------------------------------------------------------------------------------
 
 
 //corner_50_50_5(100);
 //corner_23_30_3(100);
 
 //corner_angled_40_40_4(length = 100, angle = 100);
-tube(h = 100, r_ext = 15, r_int = 12.5);
+//tube(h = 100, r_ext = 15, r_int = 12.5);
+
+pipe_connector_25(length = 60);
